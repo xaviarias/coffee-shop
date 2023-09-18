@@ -1,0 +1,17 @@
+spring:
+  data:
+    jdbc:
+      repositories:
+        enabled: true
+    jpa:
+      repositories:
+        bootstrap-mode: default
+        enabled: true
+  sql:
+    init:
+      mode: always
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: none
+    show-sql: true

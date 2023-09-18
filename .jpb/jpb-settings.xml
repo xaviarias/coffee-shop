@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JpaPluginProjectSettings">
+    <option name="entityNameTemplate" />
+    <option name="isLombokGetterAndSetter" value="false" />
+    <option name="isLombokBuilder" value="true" />
+    <option name="isLombokAllArgsConstructor" value="true" />
+    <option name="isLombokNoArgsConstructor" value="true" />
+    <option name="scaffoldingLanguage" />
+  </component>
+  <component name="PersistenceUnitSettings">
+    <persistence-units>
+      <persistence-unit name="Default" persistenceXmlPath="src/main/resources/META-INF/persistence.xml">
+        <packages>
+          <package value="com.coffeeshop.persistence" />
+        </packages>
+      </persistence-unit>
+    </persistence-units>
+  </component>
+</project>
