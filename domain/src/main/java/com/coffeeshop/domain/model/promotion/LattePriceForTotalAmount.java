@@ -4,21 +4,13 @@ import com.coffeeshop.domain.PromotionException;
 import com.coffeeshop.domain.model.Order;
 import com.coffeeshop.domain.model.Product;
 import com.coffeeshop.domain.util.MonetaryUtil;
-import org.javamoney.moneta.FastMoney;
 
 import javax.money.MonetaryAmount;
 
 public class LattePriceForTotalAmount implements Promotion {
 
-    public static final MonetaryAmount DEFAULT_TOTAL_AMOUNT = FastMoney.of(50, MonetaryUtil.USD);
-    public static final MonetaryAmount DEFAULT_LATTE_PRICE = FastMoney.of(3, MonetaryUtil.USD);
-
     private final MonetaryAmount totalAmount;
     private final MonetaryAmount lattePrice;
-
-    public LattePriceForTotalAmount() {
-        this(DEFAULT_TOTAL_AMOUNT, DEFAULT_LATTE_PRICE);
-    }
 
     public LattePriceForTotalAmount(MonetaryAmount totalAmount, MonetaryAmount lattePrice) {
         this.totalAmount = totalAmount;

@@ -7,16 +7,8 @@ import javax.money.MonetaryAmount;
 
 public class TotalDiscountForProducts implements Promotion {
 
-    public static int DEFAULT_NUMBER_OF_PRODUCTS = 8;
-
-    public static float DEFAULT_DISCOUNT = 0.05f;
-
     private final int numberOfProducts;
     private final float discount;
-
-    public TotalDiscountForProducts() {
-        this(DEFAULT_NUMBER_OF_PRODUCTS, DEFAULT_DISCOUNT);
-    }
 
     public TotalDiscountForProducts(int numberOfProducts, float discount) {
         this.numberOfProducts = numberOfProducts;

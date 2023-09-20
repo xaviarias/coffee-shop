@@ -6,15 +6,9 @@ import com.coffeeshop.domain.persistence.ProductRepository;
 
 public class FreeEspressoForLattes implements Promotion {
 
-    public static int DEFAULT_NUMBER_OF_LATTES = 2;
-
     private final ProductRepository productRepository;
 
     private final int numberOfLattes;
-
-    public FreeEspressoForLattes(ProductRepository productRepository) {
-        this(productRepository, DEFAULT_NUMBER_OF_LATTES);
-    }
 
     public FreeEspressoForLattes(ProductRepository productRepository, int numberOfLattes) {
         this.productRepository = productRepository;

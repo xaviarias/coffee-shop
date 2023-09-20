@@ -4,7 +4,7 @@ import com.coffeeshop.domain.model.Order;
 import com.coffeeshop.domain.model.promotion.FreeEspressoForLattes;
 import com.coffeeshop.domain.model.promotion.Promotion;
 import com.coffeeshop.domain.persistence.ProductRepository;
-import com.coffeeshop.domain.service.Printer;
+import com.coffeeshop.domain.service.PrinterService;
 import com.coffeeshop.domain.service.PromotionService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -34,7 +34,7 @@ public class CoffeeShopServiceTest {
     private PromotionService promotionService;
 
     @Mock
-    private Printer printer;
+    private PrinterService printerService;
 
     @InjectMocks
     private CoffeeShopServiceImpl service;
@@ -48,9 +48,9 @@ public class CoffeeShopServiceTest {
 
         service.printMenu();
 
-        verify(printer).printProduct(LATTE);
-        verify(printer).printProduct(ESPRESSO);
-        verify(printer).printProduct(SANDWICH);
+        verify(printerService).printProduct(LATTE);
+        verify(printerService).printProduct(ESPRESSO);
+        verify(printerService).printProduct(SANDWICH);
     }
 
     @Nested
@@ -69,7 +69,7 @@ public class CoffeeShopServiceTest {
             service.printOrderReceipt(order);
 
             verify(promotionService).findPromotion(order);
-            verify(printer).printOrderReceipt(order);
+            verify(printerService).printOrderReceipt(order);
         }
 
         @Test
@@ -79,13 +79,13 @@ public class CoffeeShopServiceTest {
 
             when(productRepository.findByName("Espresso")).thenReturn(ESPRESSO);
 
-            final Promotion promotion = new FreeEspressoForLattes(productRepository);
+            final Promotion promotion = new FreeEspressoForLattes(productRepository, 2);
             when(promotionService.findPromotion(order)).thenReturn(Optional.of(promotion));
 
             service.printOrderReceipt(order);
 
             verify(promotionService).findPromotion(order);
-            verify(printer).printOrderReceipt(order.accept(promotion));
+            verify(printerService).printOrderReceipt(order.accept(promotion));
         }
     }
 }

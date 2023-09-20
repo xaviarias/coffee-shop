@@ -15,3 +15,14 @@ spring:
     hibernate:
       ddl-auto: none
     show-sql: true
+
+coffee-shop:
+  promotion:
+    free-espresso-for-lattes:
+      num-lattes: 2
+    latte-price-for-total-amount:
+      total-amount: 50 USD
+      latte-price: 3 USD
+    total-discount-for-products:
+      num-products: 8
+      total-discount: 0.05

@@ -11,4 +11,8 @@ public final class MonetaryUtil {
     public static final CurrencyUnit USD = Monetary.getCurrency("USD");
 
     public static final MonetaryAmount ZERO = FastMoney.zero(USD);
+
+    public static MonetaryAmount usd(Number amount) {
+        return FastMoney.of(amount, USD);
+    }
 }
