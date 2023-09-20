@@ -1,20 +1,20 @@
 package com.coffeeshop.domain.model;
 
-import org.javamoney.moneta.FastMoney;
+import static com.coffeeshop.domain.util.MonetaryUtil.usd;
 
 public interface Products {
 
-    Product LATTE = new Product(1L, "Latte", FastMoney.of(5.3, "USD"));
+    Product LATTE = new Product(1L, "Latte", usd(5.3));
 
-    Product ESPRESSO = new Product(2L, "Espresso", FastMoney.of(4, "USD"));
+    Product ESPRESSO = new Product(2L, "Espresso", usd(4));
 
-    Product SANDWICH = new Product(3L, "Sandwich", FastMoney.of(10.10, "USD"));
+    Product SANDWICH = new Product(3L, "Sandwich", usd(10.10));
 
-    Product MILK = new Product(4L, "Milk", FastMoney.of(1, "USD"));
+    Product MILK = new Product(4L, "Milk", usd(1));
 
-    Product CAKE_SLICE = new Product(5L, "Cake Slice", FastMoney.of(9, "USD"));
+    Product CAKE_SLICE = new Product(5L, "Cake Slice", usd(9));
 
-    Product CAPPUCCINO = new Product(6L, "Cappuccino", FastMoney.of(8, "USD"));
+    Product CAPPUCCINO = new Product(6L, "Cappuccino", usd(8));
 
-    Product TEA = new Product(7L, "Tea", FastMoney.of(6.1, "USD"));
+    Product TEA = new Product(7L, "Tea", usd(6.1));
 }

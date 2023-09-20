@@ -31,7 +31,7 @@ This is the list of available products:
 
 ### 3) Add the following promotions:
 * If you order 2 lattes, you will receive a free espresso.
-* If the order have more than 8 products give a 5% discount on the total.
+* If the order has more than 8 products give a 5% discount on the total.
 * When the order has food and drinks with total value over $50, each Latte will cost $3.
   * Notes:
     * The final price after the promotion is applied can be under 50.
