@@ -69,7 +69,7 @@ public class CoffeeShopServiceTest {
             service.printOrderReceipt(order);
 
             verify(promotionService).findPromotion(order);
-            verify(printerService).printOrderReceipt(order);
+            verify(printerService).printOrderReceipt(order, null);
         }
 
         @Test
@@ -85,7 +85,7 @@ public class CoffeeShopServiceTest {
             service.printOrderReceipt(order);
 
             verify(promotionService).findPromotion(order);
-            verify(printerService).printOrderReceipt(order.accept(promotion));
+            verify(printerService).printOrderReceipt(order.accept(promotion), promotion);
         }
     }
 }

@@ -11,6 +11,8 @@ public record Order(Set<Item> items) {
 
     public static Order EMPTY = new Order();
 
+    public static int MAX_ITEMS = 99;
+
     private Order() {
         this(Set.of());
     }
@@ -23,6 +25,14 @@ public record Order(Set<Item> items) {
     }
 
     public Order add(Product product, int quantity) {
+        if (quantity <= 0) {
+            return this;
+        }
+
+        final var totalProducts = (Integer) items.stream().mapToInt(Item::quantity).sum();
+        if (MAX_ITEMS < totalProducts + quantity) {
+            return this;
+        }
 
         final var itemsToAdd = items.stream()
                 .filter(item -> !item.product.id().equals(product.id()))

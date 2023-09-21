@@ -35,7 +35,7 @@ public class LattePriceForTotalAmount implements Promotion {
                     .map(Order.Item::product)
                     .filter(product -> product.name().equals("Latte")).findFirst()
                     .map(Product::price)
-                    .orElse(MonetaryUtil.ZERO)
+                    .orElse(MonetaryUtil.usd(0))
                     .multiply(numLattes);
 
             return order.total().subtract(lattesTotalNoDiscount)

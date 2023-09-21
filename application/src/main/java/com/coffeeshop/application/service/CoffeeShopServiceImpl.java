@@ -27,8 +27,8 @@ public class CoffeeShopServiceImpl implements CoffeeShopService {
 
     public void printOrderReceipt(Order order) {
         promotionService.findPromotion(order).ifPresentOrElse(
-                promotion -> printerService.printOrderReceipt(order.accept(promotion)),
-                () -> printerService.printOrderReceipt(order)
+                promotion -> printerService.printOrderReceipt(order.accept(promotion), promotion),
+                () -> printerService.printOrderReceipt(order, null)
         );
     }
 }

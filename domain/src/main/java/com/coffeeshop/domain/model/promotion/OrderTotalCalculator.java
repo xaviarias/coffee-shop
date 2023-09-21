@@ -15,6 +15,6 @@ public interface OrderTotalCalculator {
         return order.items().stream()
                 .map(item -> item.product().price().multiply(item.quantity()))
                 .reduce(MonetaryAmount::add)
-                .orElse(MonetaryUtil.ZERO);
+                .orElse(MonetaryUtil.usd(0));
     }
 }
