@@ -2,6 +2,7 @@ package com.coffeeshop.infra.persistence;
 
 import com.coffeeshop.domain.model.Product;
 import com.coffeeshop.domain.persistence.ProductRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public List<Product> findAll() {
-        return productJpaRepository.findAll().stream()
+        return productJpaRepository.findAll(Sort.by("name")).stream()
                 .map(ProductEntity::toProduct)
                 .collect(Collectors.toList());
     }
