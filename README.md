@@ -47,5 +47,4 @@ This is the list of available products:
 
 ## TODO
 
-* Add unit and integration tests to Infrastructure layer.
 * Add tests for promotion service to make sure it works in all cases.
