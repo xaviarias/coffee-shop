@@ -17,6 +17,7 @@ public final class MonetaryUtil {
 
     private static final MonetaryAmountFormat format = MonetaryFormats.getAmountFormat(
             AmountFormatQueryBuilder.of(Locale.US)
+                    .set("pattern", "¤0.00")
                     .set(CurrencyStyle.SYMBOL)
                     .build()
     );

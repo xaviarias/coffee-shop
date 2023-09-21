@@ -2,8 +2,9 @@ package com.coffeeshop.infra.persistence;
 
 import com.coffeeshop.domain.model.Order;
 import com.coffeeshop.domain.model.Product;
+import com.coffeeshop.domain.model.Products;
 import com.coffeeshop.domain.persistence.ProductRepository;
-import com.coffeeshop.domain.service.CoffeeShopService;
+import com.coffeeshop.infra.service.ConsolePrinterService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ConsolePrinterServiceTest {
 
     @Autowired
-    private CoffeeShopService coffeeShopService;
+    private ConsolePrinterService consolePrinterService;
 
     @Autowired
     private ProductRepository productRepository;
@@ -31,17 +32,8 @@ public class ConsolePrinterServiceTest {
         final var outStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outStream));
 
-        coffeeShopService.printMenu();
-
-        assertEquals("""
-                Cake Slice          $9.00
-                Cappuccino          $8.00
-                Espresso            $4.00
-                Latte               $5.00
-                Milk                $1.00
-                Sandwich            $10.00
-                Tea                 $6.00
-                """, outStream.toString());
+        consolePrinterService.printProduct(Products.LATTE);
+        assertEquals("Latte               $5.30\n", outStream.toString());
     }
 
     @Test
@@ -57,16 +49,16 @@ public class ConsolePrinterServiceTest {
             order = order.add(product, 1);
         }
 
-        coffeeShopService.printOrderReceipt(order);
+        consolePrinterService.printOrderReceipt(order, null);
         assertEquals("""
                  1 Cake Slice          $9.00
                  1 Cappuccino          $8.00
                  1 Espresso            $4.00
-                 1 Latte               $5.00
+                 1 Latte               $5.30
                  1 Milk                $1.00
-                 1 Sandwich            $10.00
-                 1 Tea                 $6.00
-                TOTAL:                 $43.00
+                 1 Sandwich            $10.10
+                 1 Tea                 $6.10
+                TOTAL:                 $43.50
                 """, outStream.toString());
     }
 }
