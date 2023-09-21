@@ -4,24 +4,37 @@ import com.coffeeshop.domain.model.promotion.OrderTotalCalculator;
 import com.coffeeshop.domain.model.promotion.Promotion;
 
 import javax.money.MonetaryAmount;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
-public record Order(Set<Item> items) {
+public record Order(SortedSet<Item> items) {
 
-    public static Order EMPTY = new Order();
+    private static final Order EMPTY = new Order();
 
-    public static int MAX_ITEMS = 99;
+    private static final int MAX_ITEMS = 99;
 
     private Order() {
-        this(Set.of());
+        this(Collections.emptySortedSet());
     }
 
-    public Order(Set<Item> items) {
-        this.items = Set.copyOf(items);
+    public Order(SortedSet<Item> items) {
+        this.items = Collections.unmodifiableSortedSet(items);
     }
 
-    public record Item(Product product, int quantity) {
+    public static Order empty() {
+        return EMPTY;
+    }
+
+    public record Item(Product product, int quantity) implements Comparable<Item> {
+
+        @Override
+        public int compareTo(Item item) {
+            return product.name().compareTo(item.product.name());
+        }
     }
 
     public Order add(Product product, int quantity) {
@@ -42,7 +55,7 @@ public record Order(Set<Item> items) {
                 .filter(item -> item.product.id().equals(product.id())).findFirst()
                 .map(Item::quantity).orElse(0);
 
-        final var allItems = new HashSet<>(itemsToAdd);
+        final var allItems = new TreeSet<>(itemsToAdd);
         allItems.add(new Item(product, actualQuantity + quantity));
 
         return new Order(allItems);

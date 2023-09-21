@@ -26,7 +26,7 @@ public class PromotionTest {
         when(productRepository.findByName("Espresso")).thenReturn(ESPRESSO);
         final var promotion = new FreeEspressoForLattes(productRepository, 2);
 
-        var order = Order.EMPTY.add(LATTE, 2);
+        var order = Order.empty().add(LATTE, 2);
         var promoted = order.add(ESPRESSO, 1);
         assertEquals(promoted, promotion.apply(order));
 
@@ -39,7 +39,7 @@ public class PromotionTest {
     @Test
     @DisplayName("When the order has more than 8 products, there's a 5% discount on the total")
     void totalDiscountForProducts() {
-        final var order = Order.EMPTY.add(LATTE, 10);
+        final var order = Order.empty().add(LATTE, 10);
         final var totalNoDiscount = LATTE.price().multiply(10);
         final var discount = totalNoDiscount.multiply(0.05);
 
@@ -52,7 +52,7 @@ public class PromotionTest {
     @Test
     @DisplayName("When the order has food and drinks with total value over $50, the Lattes should cost $3")
     void lattePriceForTotalAmount() {
-        final var order = Order.EMPTY.add(LATTE, 10);
+        final var order = Order.empty().add(LATTE, 10);
         final var expectedTotalDiscount = usd(10 * 3);
 
         final var promotion = new LattePriceForTotalAmount(usd(50), usd(3));

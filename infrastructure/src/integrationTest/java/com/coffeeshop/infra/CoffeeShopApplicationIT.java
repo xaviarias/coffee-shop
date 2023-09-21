@@ -29,9 +29,9 @@ public class CoffeeShopApplicationIT {
     @Test
     @DisplayName("Print order receipt should print all products in the database")
     void printOrder() {
+        var order = Order.empty();
         final var products = productRepository.findAll();
 
-        var order = Order.EMPTY;
         for (Product product : products) {
             order = order.add(product, 1);
         }

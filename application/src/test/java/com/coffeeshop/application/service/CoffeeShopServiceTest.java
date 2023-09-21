@@ -61,7 +61,7 @@ public class CoffeeShopServiceTest {
         @Test
         @DisplayName("Printing the order receipt should not apply promotions if none is suitable")
         void printOrderReceiptNoPromotions() {
-            var order = Order.EMPTY.add(LATTE, 1);
+            var order = Order.empty().add(LATTE, 1);
             order = order.add(SANDWICH, 1);
             order = order.add(CAKE_SLICE, 1);
 
@@ -75,7 +75,7 @@ public class CoffeeShopServiceTest {
         @Test
         @DisplayName("Printing the order receipt should apply promotions if one is suitable")
         void printOrderReceiptWithPromotion() {
-            var order = Order.EMPTY.add(LATTE, 2);
+            var order = Order.empty().add(LATTE, 2);
 
             when(productRepository.findByName("Espresso")).thenReturn(ESPRESSO);
 

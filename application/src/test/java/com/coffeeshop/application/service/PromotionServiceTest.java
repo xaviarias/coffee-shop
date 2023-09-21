@@ -42,7 +42,7 @@ public class PromotionServiceTest {
             "the Latte price promotion should be applied")
     public void lattePricePromotionShouldBeApplied() {
 
-        final var lattePriceOrder = Order.EMPTY.add(LATTE, 10);
+        final var lattePriceOrder = Order.empty().add(LATTE, 10);
 
         when(freeEspressoForLattes.test(lattePriceOrder)).thenReturn(true);
         when(lattePriceForTotalAmount.test(lattePriceOrder)).thenReturn(true);
@@ -63,7 +63,7 @@ public class PromotionServiceTest {
             "the free Espresso promotion should be applied")
     public void freeEspressoPromotionShouldBeApplied() {
 
-        final var freeEspressoOrder = Order.EMPTY.add(LATTE, 8);
+        final var freeEspressoOrder = Order.empty().add(LATTE, 8);
 
         when(freeEspressoForLattes.test(freeEspressoOrder)).thenReturn(true);
         when(lattePriceForTotalAmount.test(freeEspressoOrder)).thenReturn(false);
@@ -82,7 +82,7 @@ public class PromotionServiceTest {
             "the 5% discount promotion should be applied")
     public void totalDiscountPromotionShouldBeApplied() {
 
-        final var totalDiscountOrder = Order.EMPTY.add(LATTE, 9);
+        final var totalDiscountOrder = Order.empty().add(LATTE, 9);
 
         when(freeEspressoForLattes.test(totalDiscountOrder)).thenReturn(true);
         when(lattePriceForTotalAmount.test(totalDiscountOrder)).thenReturn(false);

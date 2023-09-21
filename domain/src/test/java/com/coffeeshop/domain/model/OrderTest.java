@@ -15,33 +15,33 @@ public class OrderTest {
     @Test
     @DisplayName("When an order is empty, its total is zero")
     void emptyOrderTotalIsZero() {
-        assertEquals(MonetaryUtil.usd(0), Order.EMPTY.total());
+        assertEquals(MonetaryUtil.usd(0), Order.empty().total());
     }
 
     @Test
     @DisplayName("When adding zero or negative quantity to an order, it doesn't change")
     void addZeroOrNegativeQuantity() {
-        var order = Order.EMPTY.add(ESPRESSO, 0);
-        assertEquals(Order.EMPTY, order);
+        var order = Order.empty().add(ESPRESSO, 0);
+        assertEquals(Order.empty(), order);
 
-        order = Order.EMPTY.add(ESPRESSO, -1);
-        assertEquals(Order.EMPTY, order);
+        order = Order.empty().add(ESPRESSO, -1);
+        assertEquals(Order.empty(), order);
     }
 
     @Test
     @DisplayName("When adding more than the maximum quantity of products to an order, it doesn't change")
     void addMoreThanMaximumProductQuantity() {
-        var order = Order.EMPTY.add(ESPRESSO, 100);
-        assertEquals(Order.EMPTY, order);
+        var order = Order.empty().add(ESPRESSO, 100);
+        assertEquals(Order.empty(), order);
 
-        order = Order.EMPTY.add(ESPRESSO, 1);
+        order = Order.empty().add(ESPRESSO, 1);
         assertEquals(order, order.add(LATTE, 99));
     }
 
     @Test
     @DisplayName("When an order has items, its base total reflects the number if items and their price")
     void orderTotalCalculatesItemQuantities() {
-        var order = Order.EMPTY.add(ESPRESSO, 2);
+        var order = Order.empty().add(ESPRESSO, 2);
         order = order.add(LATTE, 3);
         order = order.add(CAKE_SLICE, 4);
         order = order.add(MILK, 5);
