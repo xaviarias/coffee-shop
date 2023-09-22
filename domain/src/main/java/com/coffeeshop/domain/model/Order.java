@@ -1,9 +1,5 @@
 package com.coffeeshop.domain.model;
 
-import com.coffeeshop.domain.util.MonetaryUtil;
-
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryAmount;
 import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
