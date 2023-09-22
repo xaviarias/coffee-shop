@@ -1,7 +1,6 @@
 package com.coffeeshop.domain.model;
 
 import com.coffeeshop.domain.model.promotion.OrderTotalCalculator;
-import com.coffeeshop.domain.model.promotion.Promotion;
 
 import javax.money.MonetaryAmount;
 import java.util.Collections;
@@ -67,9 +66,5 @@ public record Order(SortedSet<Item> items) {
 
     public MonetaryAmount total(OrderTotalCalculator totalCalculator) {
         return totalCalculator.calculateTotal(this);
-    }
-
-    public Order accept(Promotion promotion) {
-        return promotion.apply(this);
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import static com.coffeeshop.domain.util.MonetaryUtil.usd;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -49,7 +50,7 @@ public class ConsolePrinterServiceTest {
             order = order.add(product, 1);
         }
 
-        consolePrinterService.printOrderReceipt(order, null);
+        consolePrinterService.printOrderReceipt(order, usd(43.5));
         assertEquals("""
                  1 Cake Slice          $9.00
                  1 Cappuccino          $8.00

@@ -2,9 +2,10 @@ package com.coffeeshop.infra.service;
 
 import com.coffeeshop.domain.model.Order;
 import com.coffeeshop.domain.model.Product;
-import com.coffeeshop.domain.model.promotion.OrderTotalCalculator;
 import com.coffeeshop.domain.service.PrinterService;
 import org.springframework.stereotype.Component;
+
+import javax.money.MonetaryAmount;
 
 import static com.coffeeshop.domain.util.MonetaryUtil.format;
 
@@ -21,15 +22,9 @@ public class ConsolePrinterService implements PrinterService {
     }
 
     @Override
-    public void printOrderReceipt(Order order, OrderTotalCalculator totalCalculator) {
+    public void printOrderReceipt(Order order, MonetaryAmount total) {
         order.items().forEach(this::printOrderItem);
-        String total;
-        if (totalCalculator != null) {
-            total = format(order.total(totalCalculator));
-        } else {
-            total = format(order.total());
-        }
-        System.out.printf("TOTAL:%s", total.indent(MAX_INDENT - 3));
+        System.out.printf("TOTAL:%s", format(total).indent(MAX_INDENT - 3));
     }
 
     private void printOrderItem(Order.Item item) {
@@ -38,6 +33,7 @@ public class ConsolePrinterService implements PrinterService {
         System.out.printf("%2d %s%s",
                 item.quantity(),
                 item.product().name(),
-                price.indent(indent));
+                price.indent(indent)
+        );
     }
 }
