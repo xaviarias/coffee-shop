@@ -17,12 +17,7 @@ public class TotalDiscountForProducts implements Promotion {
 
     @Override
     public boolean test(Order order) {
-        final var numProducts = order.items().stream()
-                .map(Order.Item::quantity)
-                .reduce(Integer::sum)
-                .orElse(0);
-
-        return numberOfProducts < numProducts;
+       return numberOfProducts < order.numberOfProducts();
     }
 
     @Override

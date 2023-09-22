@@ -5,9 +5,6 @@ import com.coffeeshop.domain.model.promotion.Promotion;
 
 import javax.money.MonetaryAmount;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -42,8 +39,7 @@ public record Order(SortedSet<Item> items) {
             return this;
         }
 
-        final var totalProducts = (Integer) items.stream().mapToInt(Item::quantity).sum();
-        if (MAX_ITEMS < totalProducts + quantity) {
+        if (MAX_ITEMS < numberOfProducts() + quantity) {
             return this;
         }
 
@@ -63,6 +59,10 @@ public record Order(SortedSet<Item> items) {
 
     public MonetaryAmount total() {
         return OrderTotalCalculator.baseTotal(this);
+    }
+
+    public int numberOfProducts() {
+        return items.stream().mapToInt(Item::quantity).sum();
     }
 
     public MonetaryAmount total(OrderTotalCalculator totalCalculator) {
