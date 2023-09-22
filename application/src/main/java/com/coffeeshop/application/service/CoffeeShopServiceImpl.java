@@ -8,6 +8,8 @@ import com.coffeeshop.domain.service.PromotionService;
 
 import javax.money.CurrencyUnit;
 
+import static com.coffeeshop.domain.model.promotion.OrderTotalCalculator.baseTotal;
+
 public class CoffeeShopServiceImpl implements CoffeeShopService {
 
     private final ProductRepository productRepository;
@@ -37,7 +39,7 @@ public class CoffeeShopServiceImpl implements CoffeeShopService {
             final var total = promotion.get().calculateTotal(order);
             printerService.printOrderReceipt(promotion.get().apply(order), total);
         } else {
-            printerService.printOrderReceipt(order, order.total(currencyUnit));
+            printerService.printOrderReceipt(order, baseTotal(order, currencyUnit));
         }
     }
 }

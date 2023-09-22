@@ -17,6 +17,6 @@ public abstract class AbstractPromotion implements Promotion {
 
     @Override
     public MonetaryAmount calculateTotal(Order order) {
-        return order.total(currencyUnit);
+        return OrderTotalCalculator.baseTotal(order, currencyUnit);
     }
 }

@@ -25,7 +25,7 @@ public class LattePriceForTotalAmount extends AbstractPromotion {
 
     @Override
     public boolean test(Order order) {
-        return order.total(getCurrencyUnit()).isGreaterThan(totalAmount);
+        return super.calculateTotal(order).isGreaterThan(totalAmount);
     }
 
     @Override
@@ -44,7 +44,8 @@ public class LattePriceForTotalAmount extends AbstractPromotion {
                     .orElse(MonetaryUtil.usd(0))
                     .multiply(numLattes);
 
-            return order.total(getCurrencyUnit()).subtract(lattesTotalNoDiscount)
+            return super.calculateTotal(order)
+                    .subtract(lattesTotalNoDiscount)
                     .add(lattePrice.multiply(numLattes));
         } else {
             throw new PromotionException(order);

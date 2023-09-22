@@ -57,13 +57,6 @@ public record Order(SortedSet<Item> items) {
         return new Order(allItems);
     }
 
-    public MonetaryAmount total(CurrencyUnit currencyUnit) {
-        return items().stream()
-                .map(item -> item.product().price().multiply(item.quantity()))
-                .reduce(MonetaryAmount::add)
-                .orElse(MonetaryUtil.zero(currencyUnit));
-    }
-
     public int numberOfProducts() {
         return items.stream().mapToInt(Item::quantity).sum();
     }

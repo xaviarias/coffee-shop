@@ -29,7 +29,7 @@ public class TotalDiscountForProducts extends AbstractPromotion {
     @Override
     public MonetaryAmount calculateTotal(Order order) {
         if (test(order)) {
-            final var baseTotal = order.total(getCurrencyUnit());
+            final var baseTotal = super.calculateTotal(order);
             final var givenDiscount = baseTotal.multiply(discount);
             return baseTotal.subtract(givenDiscount);
         } else {

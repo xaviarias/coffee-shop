@@ -21,6 +21,7 @@ import static com.coffeeshop.domain.model.Products.CAKE_SLICE;
 import static com.coffeeshop.domain.model.Products.ESPRESSO;
 import static com.coffeeshop.domain.model.Products.LATTE;
 import static com.coffeeshop.domain.model.Products.SANDWICH;
+import static com.coffeeshop.domain.model.promotion.OrderTotalCalculator.baseTotal;
 import static com.coffeeshop.domain.util.MonetaryUtil.USD;
 import static com.coffeeshop.domain.util.MonetaryUtil.usd;
 import static org.mockito.Mockito.verify;
@@ -80,7 +81,7 @@ public class CoffeeShopServiceTest {
             coffeeShopService.printOrderReceipt(order);
 
             verify(promotionService).findPromotion(order);
-            verify(printerService).printOrderReceipt(order, order.total(USD));
+            verify(printerService).printOrderReceipt(order, baseTotal(order, USD));
         }
 
         @Test

@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static com.coffeeshop.domain.model.Products.LATTE;
+import static com.coffeeshop.domain.model.promotion.OrderTotalCalculator.baseTotal;
 import static com.coffeeshop.domain.util.MonetaryUtil.USD;
 import static com.coffeeshop.domain.util.MonetaryUtil.usd;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -73,9 +74,9 @@ public class PromotionServiceTest {
         final var totalPrice = LATTE.price().multiply(8);
         when(freeEspressoForLattes.calculateTotal(freeEspressoOrder)).thenReturn(totalPrice);
 
-        final var freeEspressoPromotion = promotionService.findPromotion(freeEspressoOrder).orElseThrow();
-        assertEquals(FreeEspressoForLattes.class, freeEspressoPromotion.getClass());
-        assertEquals(totalPrice, freeEspressoOrder.total(USD));
+        final var promotion = promotionService.findPromotion(freeEspressoOrder).orElseThrow();
+        assertEquals(FreeEspressoForLattes.class, promotion.getClass());
+        assertEquals(totalPrice, baseTotal(freeEspressoOrder, USD));
     }
 
     @Test
