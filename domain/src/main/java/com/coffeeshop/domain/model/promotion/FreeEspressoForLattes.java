@@ -4,13 +4,20 @@ import com.coffeeshop.domain.PromotionException;
 import com.coffeeshop.domain.model.Order;
 import com.coffeeshop.domain.persistence.ProductRepository;
 
-public class FreeEspressoForLattes implements Promotion {
+import javax.money.CurrencyUnit;
+
+public class FreeEspressoForLattes extends AbstractPromotion {
 
     private final ProductRepository productRepository;
 
     private final int numberOfLattes;
 
-    public FreeEspressoForLattes(ProductRepository productRepository, int numberOfLattes) {
+    public FreeEspressoForLattes(
+            ProductRepository productRepository,
+            CurrencyUnit currencyUnit,
+            int numberOfLattes
+    ) {
+        super(currencyUnit);
         this.productRepository = productRepository;
         this.numberOfLattes = numberOfLattes;
     }

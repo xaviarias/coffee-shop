@@ -22,6 +22,10 @@ public final class MonetaryUtil {
                     .build()
     );
 
+    public static MonetaryAmount zero(CurrencyUnit currencyUnit) {
+        return FastMoney.zero(currencyUnit);
+    }
+
     public static MonetaryAmount usd(Number amount) {
         return FastMoney.of(amount, USD);
     }

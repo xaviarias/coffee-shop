@@ -10,6 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static com.coffeeshop.domain.model.Products.ESPRESSO;
 import static com.coffeeshop.domain.model.Products.LATTE;
+import static com.coffeeshop.domain.util.MonetaryUtil.USD;
 import static com.coffeeshop.domain.util.MonetaryUtil.usd;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -24,7 +25,7 @@ public class PromotionTest {
     @DisplayName("When the order has Lattes, there's a free Espresso for each 2")
     void freeEspressoForLattes() {
         when(productRepository.findByName("Espresso")).thenReturn(ESPRESSO);
-        final var promotion = new FreeEspressoForLattes(productRepository, 2);
+        final var promotion = new FreeEspressoForLattes(productRepository, USD, 2);
 
         var order = Order.empty().add(LATTE, 2);
         var promoted = order.add(ESPRESSO, 1);
@@ -43,8 +44,8 @@ public class PromotionTest {
         final var totalNoDiscount = LATTE.price().multiply(10);
         final var discount = totalNoDiscount.multiply(0.05);
 
-        final var promotion = new TotalDiscountForProducts(8, 0.05f);
-        final var totalDiscount = promotion.apply(order).total(promotion);
+        final var promotion = new TotalDiscountForProducts(USD, 8, 0.05f);
+        final var totalDiscount = promotion.calculateTotal(promotion.apply(order));
 
         assertEquals(totalNoDiscount.subtract(discount), totalDiscount);
     }
@@ -55,8 +56,8 @@ public class PromotionTest {
         final var order = Order.empty().add(LATTE, 10);
         final var expectedTotalDiscount = usd(10 * 3);
 
-        final var promotion = new LattePriceForTotalAmount(usd(50), usd(3));
-        final var actualTotalDiscount = promotion.apply(order).total(promotion);
+        final var promotion = new LattePriceForTotalAmount(USD, usd(50), usd(3));
+        final var actualTotalDiscount = promotion.calculateTotal(promotion.apply(order));
 
         assertEquals(expectedTotalDiscount, actualTotalDiscount);
     }

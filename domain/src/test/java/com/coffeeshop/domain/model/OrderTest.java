@@ -1,6 +1,5 @@
 package com.coffeeshop.domain.model;
 
-import com.coffeeshop.domain.util.MonetaryUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -8,6 +7,8 @@ import static com.coffeeshop.domain.model.Products.CAKE_SLICE;
 import static com.coffeeshop.domain.model.Products.ESPRESSO;
 import static com.coffeeshop.domain.model.Products.LATTE;
 import static com.coffeeshop.domain.model.Products.MILK;
+import static com.coffeeshop.domain.util.MonetaryUtil.USD;
+import static com.coffeeshop.domain.util.MonetaryUtil.usd;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class OrderTest {
@@ -15,7 +16,7 @@ public class OrderTest {
     @Test
     @DisplayName("When an order is empty, its total is zero")
     void emptyOrderTotalIsZero() {
-        assertEquals(MonetaryUtil.usd(0), Order.empty().total());
+        assertEquals(usd(0), Order.empty().total(USD));
     }
 
     @Test
@@ -51,7 +52,7 @@ public class OrderTest {
                         .add(LATTE.price().multiply(3))
                         .add(CAKE_SLICE.price().multiply(4))
                         .add(MILK.price().multiply(5)),
-                order.total()
+                order.total(USD)
         );
     }
 }

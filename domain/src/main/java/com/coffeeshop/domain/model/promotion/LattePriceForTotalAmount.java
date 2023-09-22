@@ -5,21 +5,27 @@ import com.coffeeshop.domain.model.Order;
 import com.coffeeshop.domain.model.Product;
 import com.coffeeshop.domain.util.MonetaryUtil;
 
+import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
 
-public class LattePriceForTotalAmount implements Promotion {
+public class LattePriceForTotalAmount extends AbstractPromotion {
 
     private final MonetaryAmount totalAmount;
     private final MonetaryAmount lattePrice;
 
-    public LattePriceForTotalAmount(MonetaryAmount totalAmount, MonetaryAmount lattePrice) {
+    public LattePriceForTotalAmount(
+            CurrencyUnit currencyUnit,
+            MonetaryAmount totalAmount,
+            MonetaryAmount lattePrice
+    ) {
+        super(currencyUnit);
         this.totalAmount = totalAmount;
         this.lattePrice = lattePrice;
     }
 
     @Override
     public boolean test(Order order) {
-        return order.total().isGreaterThan(totalAmount);
+        return order.total(getCurrencyUnit()).isGreaterThan(totalAmount);
     }
 
     @Override
@@ -38,7 +44,7 @@ public class LattePriceForTotalAmount implements Promotion {
                     .orElse(MonetaryUtil.usd(0))
                     .multiply(numLattes);
 
-            return order.total().subtract(lattesTotalNoDiscount)
+            return order.total(getCurrencyUnit()).subtract(lattesTotalNoDiscount)
                     .add(lattePrice.multiply(numLattes));
         } else {
             throw new PromotionException(order);

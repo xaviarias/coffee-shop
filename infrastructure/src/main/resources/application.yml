@@ -17,6 +17,7 @@ spring:
     show-sql: false
 
 coffee-shop:
+  currency-unit: USD
   promotion:
     free-espresso-for-lattes:
       num-lattes: 2

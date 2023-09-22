@@ -11,7 +11,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toMap;
 
 public class PromotionServiceImpl implements PromotionService {
 
@@ -33,7 +34,7 @@ public class PromotionServiceImpl implements PromotionService {
     public Optional<Promotion> findPromotion(Order order) {
         return promotions.stream()
                 .filter(promotion -> promotion.test(order))
-                .collect(Collectors.toMap(Function.identity(), order::total))
+                .collect(toMap(Function.identity(), p -> p.calculateTotal(order)))
                 .entrySet().stream().min(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey);
     }

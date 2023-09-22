@@ -12,6 +12,8 @@ import com.coffeeshop.domain.service.PromotionService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import javax.money.CurrencyUnit;
+
 @Component
 public class CoffeeShopConfiguration {
 
@@ -22,24 +24,35 @@ public class CoffeeShopConfiguration {
     }
 
     @Bean
-    public FreeEspressoForLattes freeEspressoForLattes(ProductRepository productRepository) {
+    public CurrencyUnit currencyUnit() {
+        return properties.currencyUnit();
+    }
+
+    @Bean
+    public FreeEspressoForLattes freeEspressoForLattes(
+            ProductRepository productRepository,
+            CurrencyUnit currencyUnit
+    ) {
         return new FreeEspressoForLattes(
                 productRepository,
+                currencyUnit,
                 properties.promotion().freeEspressoForLattes().numLattes()
         );
     }
 
     @Bean
-    public TotalDiscountForProducts totalDiscountForProducts() {
+    public TotalDiscountForProducts totalDiscountForProducts(CurrencyUnit currencyUnit) {
         return new TotalDiscountForProducts(
+                currencyUnit,
                 properties.promotion().totalDiscountForProducts().numProducts(),
                 properties.promotion().totalDiscountForProducts().totalDiscount()
         );
     }
 
     @Bean
-    public LattePriceForTotalAmount lattePriceForTotalAmount() {
+    public LattePriceForTotalAmount lattePriceForTotalAmount(CurrencyUnit currencyUnit) {
         return new LattePriceForTotalAmount(
+                currencyUnit,
                 properties.promotion().lattePriceForTotalAmount().totalAmount(),
                 properties.promotion().lattePriceForTotalAmount().lattePrice()
         );
@@ -62,8 +75,13 @@ public class CoffeeShopConfiguration {
     public CoffeeShopService coffeeShopService(
             ProductRepository productRepository,
             PromotionService promotionService,
-            PrinterService printerService
+            PrinterService printerService,
+            CurrencyUnit currencyUnit
     ) {
-        return new CoffeeShopServiceImpl(productRepository, promotionService, printerService);
+        return new CoffeeShopServiceImpl(productRepository,
+                promotionService,
+                printerService,
+                currencyUnit
+        );
     }
 }

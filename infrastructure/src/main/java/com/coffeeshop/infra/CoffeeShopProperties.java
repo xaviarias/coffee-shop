@@ -2,10 +2,11 @@ package com.coffeeshop.infra;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
 
 @ConfigurationProperties("coffee-shop")
-public record CoffeeShopProperties(Promotion promotion) {
+public record CoffeeShopProperties(CurrencyUnit currencyUnit, Promotion promotion) {
 
     public record Promotion(
             FreeEspressoForLattes freeEspressoForLattes,
